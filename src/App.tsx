@@ -1,11 +1,11 @@
-import WalletConnect from "./components/WalletConnect";
-
+import Homepage from "./pages/Homepage";
+import './styles/App.css';
 
 const App = () => {
 
   return (
     <>
-      <WalletConnect />
+      <Homepage />
     </>
   );
 };

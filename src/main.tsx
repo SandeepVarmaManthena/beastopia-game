@@ -12,8 +12,8 @@ import { NetworkId, WalletId, WalletManager, WalletProvider } from "@txnlab/use-
 
 const walletManager = new WalletManager({ 
   wallets: [
-    WalletId.DEFLY,
     WalletId.PERA,
+    WalletId.DEFLY,
   ],
   network: NetworkId.TESTNET,
 });
