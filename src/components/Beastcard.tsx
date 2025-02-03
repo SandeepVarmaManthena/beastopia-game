@@ -4,7 +4,7 @@ import ProgressBar from "@ramonak/react-progress-bar";
 const Beastcard = (props: { image: string; name: string; desc: string; power :number; speed :number; healing :number; }) => {
   return (
     <>
-        <div className="beast_wrapper flex justify-center items-center p-6 w-[360px] bg-gray-900 rounded-lg shadow-lg">
+        <div className="beast_wrapper flex justify-center items-center p-6 w-[360px] bg-gray-900 rounded-lg shadow-lg border-b-4 border-[#F0A500]">
             <div className="beast_card  text-white flex flex-col gap-2 align-center justify-center w-[80%]">
                 <div className="wrap flex flex-row items-center gap-2 pb-3">
                     <div className="empty bg-[#F0A500] w-[3px] h-[20px]"></div>
@@ -13,7 +13,7 @@ const Beastcard = (props: { image: string; name: string; desc: string; power :nu
                     </h2>
                 </div>
                 <div className="beast_image w-[220px] rounded-t-lg overflow-hidden m-auto animate-slow-move">
-                    <img src={props.image} alt="beast" className="animate-pulse"/>
+                    <img src={props.image} alt="beast" className="animate-pulse hover:scale-105 transition-transform duration-300 ease-in-out hover:animate-none cursor-pointer"/>
                 </div>
                 {/* <div className="beast_info p-4">
                     <h2 className="beast_name text-2xl font-bold">{props.name}</h2>

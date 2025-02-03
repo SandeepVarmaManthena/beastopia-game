@@ -1,3 +1,4 @@
+import React, { useRef, useEffect } from 'react';
 import { useWallet } from "@txnlab/use-wallet-react";
 import { toast as showToast } from 'react-toastify';
 import { Wallet } from "@txnlab/use-wallet-react"; // Ensure this import is correct
@@ -9,20 +10,29 @@ interface ConnectWalletModalProps {
   onClose: () => void;
 }
 
-const ConnectWalletModal = ({ wallets, isOpen, onClose }: ConnectWalletModalProps) => {
-  if (!isOpen) return null;
+const ConnectWalletModal: React.FC<ConnectWalletModalProps> = ({ wallets, isOpen, onClose }) => {
   const { activeAccount } = useWallet();
+  const modalRef = useRef<HTMLDivElement>(null);
 
-  if(isOpen){
-    window.onclick = function(event) {
-      if (event.target === document.querySelector('.absolute')) {
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (modalRef.current && !modalRef.current.contains(event.target as Node)) {
         onClose();
       }
+    };
+
+    if (isOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+    } else {
+      document.removeEventListener("mousedown", handleClickOutside);
     }
-  }
-  else{
-    window.onclick = null;
-  }
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [isOpen, onClose]);
+
+  if (!isOpen) return null;
 
   const handleWalletClick = async (wallet: Wallet) => {
     if (wallet.isConnected) {
@@ -48,9 +58,9 @@ const ConnectWalletModal = ({ wallets, isOpen, onClose }: ConnectWalletModalProp
   };
 
   return (
-    <div onClick={onClose} className="absolute top-[3.5rem] right-0 bg-gray-900 flex justify-center items-center w-[220px] rounded-lg shadow-lg border-1 border-[#F0A500]">
-      <div className="modal-container flex flex-col gap-3 w-[100%] p-2" onClick={(e) => e.stopPropagation()}>
-        <div className="modal-header flex flex-row justify-between items-center text-lg font-bold gap-2 py-1 px-0 text-[#F0A500] rounded-lg">
+    <div className="absolute top-[3.6rem] right-0 bg-gray-900 flex justify-center items-center w-[220px] rounded-lg shadow-lg border-2 border-[#F0A500]">
+      <div ref={modalRef} className="modal-container flex flex-col gap-3 w-[100%] p-2">
+        <div className="modal-header flex flex-row justify-between items-center text-lg font-bold gap-1 py-1 px-0 text-[#F0A500] rounded-lg">
           <span className="px-2">Connect to wallet</span>
           <span className="close-button" onClick={onClose}>
             <IoClose className="text-3xl cursor-pointer" />

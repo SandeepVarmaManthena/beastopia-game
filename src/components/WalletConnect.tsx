@@ -38,7 +38,7 @@ const WalletConnect = () => {
             ))}
         </select> */}
         <div className="relative second_wrap d-flex justify-content-between align-items-center">
-            <button onClick={() => setIsModalOpen(true)} className="connect_wallet_btn p-2 rounded-lg text-[#F0A500] border-2 border-[#F0A500] hover:bg-[#F0A500] hover:text-gray-800 hover:border-gray-800 transition-all duration-200 ease-in-out border-b-4 cursor-pointer">
+            <button onClick={() => setIsModalOpen(true)} className="connect_wallet_btn text-xl p-2 rounded-lg text-[#F0A500] border-2 border-[#F0A500] hover:bg-[#F0A500] hover:text-gray-800 hover:border-gray-800 transition-all duration-200 ease-in-out border-b-4 cursor-pointer active:scale-90">
             {activeAccount ? `Connected as ${formatAddress(activeAccount.address)}` : "Connect Wallet"}
             </button>
             <ConnectWalletModal wallets={wallets} isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
